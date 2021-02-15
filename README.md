@@ -204,7 +204,7 @@ D:\Development\maven-learn\io.bubblesort.mavenartifact>mvn **test**
 [INFO]  
 [INFO] --- maven-compiler-plugin:3.8.0:compile (default-compile) @ io.bubblesort.mavenartifact ---  
 [INFO] Changes detected - recompiling the module!  
-[INFO] Compiling 1 source file to D:\Development\maven-learn\io.bubblesort.mavenartifact\target\classes  
+[INFO] Compiling 1 source file to **D:\Development\maven-learn\io.bubblesort.mavenartifact\target\classes**  
 [INFO]  
 [INFO] --- maven-resources-plugin:3.0.2:testResources (default-testResources) @ io.bubblesort.mavenartifact ---  
 [INFO] Using 'UTF-8' encoding to copy filtered resources.  
@@ -232,3 +232,15 @@ D:\Development\maven-learn\io.bubblesort.mavenartifact>mvn **test**
 [INFO] Total time:  2.442 s  
 [INFO] Finished at: 2021-02-15T16:16:20+05:30  
 [INFO] ------------------------------------------------------------------------
+
+# Dependencies
+
+All the external dependencies in Java projects are to be available in the form of Jar files for a Java project. For this, the developer needs to download the Jar files. In Maven, this is managed by XML statements in POM.xml file.
+
+``` XML
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.7.30</version>
+</dependency>
+```
