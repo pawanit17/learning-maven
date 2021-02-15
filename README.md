@@ -172,8 +172,13 @@ Used for compiling the source code in the project.
 Used for packaging the compiled source into Jar/War.
 
 # Build Lifecycle
+Maven is built around a typical build lifecycle. There are 3 parts to a build lifecycle.
+1. Clean - handles project cleaning.
+2. Default - handles your project deployment.
+3. Site - Generates project's site documentation.
 
-The build process is managed by various identifiers in Maven, called as phases. These are listed below:
+## Build Phases
+Each of the build lifecycle steps is defined by a list of steps called build phases.
 
 * clean: cleans up artifacts created by prior builds
 * validate: validate the project is correct and all necessary information is available
@@ -186,7 +191,11 @@ The build process is managed by various identifiers in Maven, called as phases. 
 * deploy: done in an integration or release environment, copies the final package to the remote repository for sharing with other developers and projects.
 * site: generates site documentation for this project
 
-When a single phase is executed, it executes all the phases above it as well. For example, running test would also run **validate** and **compile** as well. 
+## Running the phases
+You can run the phase by doing
+`mvn verify` or `mvn clean deploy`. This runs all the phases till that phase including that phase.
+
+When a single phase is executed, it executes all the phases above it as well. For example, running test would also run **validate** and **compile** as well.  
 Read More here: http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Built-in_Lifecycle_Bindings
 
 Ex: 
@@ -254,6 +263,21 @@ D:\Development\maven-learn\io.bubblesort.mavenartifact>mvn **test**
 [INFO] Finished at: 2021-02-15T16:16:20+05:30  
 [INFO] ------------------------------------------------------------------------
 
+
+## Build Goals
+Read more here: https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#a-build-phase-is-made-up-of-plugin-goals
+Each phase is made up of plugin goals. One goal may be part of multiple phases.
+
+## Running the goals
+Goals can be run in conjunction with their plugin name.
+
+Ex: `mvn clean dependency:copy-dependencies package`
+In the above example, clean and package are phases where as dependency:copy-dependencies is the name of the build goal.
+
+To know the list of Goals against a plugin, use the help.
+
+`mvn help:describe -DgroupId=org.apache.maven.plugins -DartifactId=maven-dependency-plugin -Ddetail=true`
+
 # Dependencies
 
 All the external dependencies in Java projects are to be available in the form of Jar files for a Java project. For this, the developer needs to download the Jar files. In Maven, this is managed by XML statements in POM.xml file.
@@ -266,6 +290,6 @@ All the external dependencies in Java projects are to be available in the form o
 </dependency>
 ```
 
-Note that the default scope for a dependency in Maven is Compile.
+Scope determines at which point the resource/artifact is available. The default scope for a dependency in Maven is Compile.
 
 
