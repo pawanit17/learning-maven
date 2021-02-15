@@ -10,6 +10,33 @@ In general, a typical project structure looks as shown below:
 6. Task Runner - build, test and run
 7. Reporting.
 
+# Maven project structure
+1. src/main/java contains the source code
+2. src/test/java contains the unit test cases.
+
+```
+  my-app
+  |-- pom.xml
+   -- src
+      |-- main
+      |   -- java
+      |        -- com
+      |            -- mycompany
+      |                -- app
+      |                    -- App.java
+       -- test
+           -- java
+               -- com
+                   -- mycompany
+                       -- app
+                           -- AppTest.java
+```
+
+# Maven build phases
+
+# Maven build goals
+
+
 # Repositories
 Maven has the concept of respositories where it stores the artifacts. When you run Maven to build or package an application on your local computer, the dependencies that you specify, for example, jUnits, are downloaded from the central remote repository.
 After build, it also creates a local repository where it would store the artifacts. So if you have another application configured which uses the first application's artificats, then Maven picks them from this local repository.
@@ -98,20 +125,35 @@ Below is one such sample POM.xml file
 ```
 
 ## A closer look
-properties - determines what properties are to be applied during build and packaging
-dependencies - determine what all are dependent libraries, jars
-groupId - determine
-artifcatId - determine
-version - 
-name - 
+* properties - determines what properties are to be applied during build and packaging
+* dependencies - determine what all are dependent libraries, jars
+* groupId - determines the group or the organization that is creating the project.
+* artifcatId - determines the name of the artificat.
+* version -  determines the version of the artificat.
+* name - The general name for the project.
+
+Ex: Gitlab4J's POM.xml 
+
+```xml
+<modelVersion>4.0.0</modelVersion>
+<groupId>org.gitlab4j</groupId>
+<artifactId>gitlab4j-api</artifactId>
+<packaging>jar</packaging>
+<version>4.15.8-SNAPSHOT</version>
+<name>GitLab4J-API - GitLab API Java Client</name>
+<description>GitLab4J-API (gitlab4j-api) provides a full featured Java client library for working with GitLab repositories and servers via the GitLab REST API.</description>
+<url>https://github.com/gitlab4j/gitlab4j-api</url>
+```
+
 
 # Examples
 
-**mvn archetype:generate**
+* **mvn archetype:generate**
 We can use the command mvn archetype:generate to generate a project hierarchy for that archetype. Archetype is like a template. You have different archetypes for different types of applications - web applications, spring boot applications etc. Once selected, a preset configuration is applied to the pom.xml with dependencies, etc. This project can load into eclipse or any other IDE directly. As of this moment, there were around 1700+ archetypes.
 
-**mvn compile**
+* **mvn compile**
 Used for compiling the source code in the project.
-**mvn package**
+
+* **mvn package**
 Used for packaging the compiled source into Jar/War.
 
