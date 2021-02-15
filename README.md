@@ -244,3 +244,7 @@ All the external dependencies in Java projects are to be available in the form o
     <version>1.7.30</version>
 </dependency>
 ```
+
+Note that the default scope for a dependency in Maven is Compile.
+
+
