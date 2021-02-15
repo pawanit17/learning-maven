@@ -1,6 +1,14 @@
 # Introduction
 Apache Maven is both a build tool as well as a dependency management tool. More than that, it is a project management tool. It allows you to create a project without tying to any specific IDE like Eclilpse or InteliJIDE.
 
+## Comparison with Ant
+- Ant is just a build tool. Maven is a project management tool. It does more than just building the project.
+- Ant needs Ivy for dependency management. With Maven, dependency management is covered automatically.
+- If all projects are created with Maven, they follow the same industry approved convention for projects.
+- In Ant, if our project is dependent on another Jar, then you have to download that Jar file and put it in a directory and then make Ant point to it for completing the build.     With Maven, that happens automatically.
+
+
+
 In general, a typical project structure looks as shown below:
 1. Source code
 2. Test code
@@ -37,7 +45,7 @@ Maven has the concept of respositories where it stores the artifacts. When you r
 After build, it also creates a local repository where it would store the artifacts. So if you have another application configured which uses the first application's artificats, then Maven picks them from this local repository.
 
 # POM.xml
-Central to Maven, is the POM.xml file. Project Object Model is its full name. It defines what the project settings are. To be more precise, the ArtifactID, the GroupID, the artificat version, the build properties, the dependencies, the packaging etc. The combination of ArtifactID, the GroupID and the artifact version are what tells Maven which artificat among many versions it has to load.
+Central to Maven, is the POM.xml file. Project Object Model is its full name. It defines what the project settings are. To be more precise, the ArtifactID, the GroupID, the artificat version, the build properties, the dependencies, the packaging etc. The combination of ArtifactID, the GroupID and the artifact version are what tells Maven which artificat among many versions it has to load. These three are together called as Coordinates.
 
 Below is one such sample POM.xml file
 
@@ -139,6 +147,12 @@ Ex: Gitlab4J's POM.xml
 <description>GitLab4J-API (gitlab4j-api) provides a full featured Java client library for working with GitLab repositories and servers via the GitLab REST API.</description>
 <url>https://github.com/gitlab4j/gitlab4j-api</url>
 ```
+
+# Super POM
+All the Maven projects have overridden content in them. That means only the content that is updated by the project are listed in the POM.xml. All other information is inherited from the Super POM.xml file. This is present on the Maven repository.
+
+# Effective POM
+The net POM is nothing but the resultant POM for a given project taking into account its Super POM. This can be see by executing the command `mvn help:effective-pom`.
 
 # Examples
 
