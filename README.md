@@ -32,11 +32,6 @@ In general, a typical project structure looks as shown below:
                            -- AppTest.java
 ```
 
-# Maven build phases
-
-# Maven build goals
-
-
 # Repositories
 Maven has the concept of respositories where it stores the artifacts. When you run Maven to build or package an application on your local computer, the dependencies that you specify, for example, jUnits, are downloaded from the central remote repository.
 After build, it also creates a local repository where it would store the artifacts. So if you have another application configured which uses the first application's artificats, then Maven picks them from this local repository.
@@ -145,7 +140,6 @@ Ex: Gitlab4J's POM.xml
 <url>https://github.com/gitlab4j/gitlab4j-api</url>
 ```
 
-
 # Examples
 
 * **mvn archetype:generate**
@@ -157,3 +151,84 @@ Used for compiling the source code in the project.
 * **mvn package**
 Used for packaging the compiled source into Jar/War.
 
+# Build Lifecycle
+
+The build process is managed by various identifiers in Maven, called as phases. These are listed below:
+
+* validate: validate the project is correct and all necessary information is available
+* compile: compile the source code of the project
+* test: test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed
+* package: take the compiled code and package it in its distributable format, such as a JAR.
+* integration-test: process and deploy the package if necessary into an environment where integration tests can be run
+* verify: run any checks to verify the package is valid and meets quality criteria
+* install: install the package into the local repository, for use as a dependency in other projects locally
+* deploy: done in an integration or release environment, copies the final package to the remote repository for sharing with other developers and projects.
+* clean: cleans up artifacts created by prior builds
+* site: generates site documentation for this project
+
+When a single phase is executed, it executes all the phases above it as well. For example, running test would also run **validate** and **compile** as well. 
+
+Ex: 
+
+D:\Development\maven-learn\io.bubblesort.mavenartifact>mvn **compile**  
+[INFO] Scanning for projects...  
+[INFO]  
+[INFO] ------< io.bubblesort.maventutorial:io.bubblesort.mavenartifact >-------  
+[INFO] Building io.bubblesort.mavenartifact 1.0-SNAPSHOT  
+[INFO] --------------------------------[ jar ]---------------------------------  
+[INFO]  
+[INFO] --- maven-resources-plugin:3.0.2:resources (default-resources) @ io.bubblesort.mavenartifact ---  
+[INFO] Using 'UTF-8' encoding to copy filtered resources.  
+[INFO] skip non existing resourceDirectory D:\Development\maven-learn\io.bubblesort.mavenartifact\src\main\resources  
+[INFO]  
+[INFO] --- maven-compiler-plugin:3.8.0:compile (default-compile) @ io.bubblesort.mavenartifact ---  
+[INFO] Nothing to compile - all classes are up to date  
+[INFO] ------------------------------------------------------------------------  
+[INFO] BUILD SUCCESS  
+[INFO] ------------------------------------------------------------------------  
+[INFO] Total time:  0.664 s  
+[INFO] Finished at: 2021-02-15T16:06:19+05:30  
+[INFO] ------------------------------------------------------------------------  
+
+Ex:
+D:\Development\maven-learn\io.bubblesort.mavenartifact>mvn **test**  
+[INFO] Scanning for projects...  
+[INFO]  
+[INFO] ------< io.bubblesort.maventutorial:io.bubblesort.mavenartifact >-------  
+[INFO] Building io.bubblesort.mavenartifact 1.0-SNAPSHOT  
+[INFO] --------------------------------[ jar ]---------------------------------  
+[INFO]  
+[INFO] --- maven-resources-plugin:3.0.2:resources (default-resources) @ io.bubblesort.mavenartifact ---  
+[INFO] Using 'UTF-8' encoding to copy filtered resources.  
+[INFO] skip non existing resourceDirectory D:\Development\maven-learn\io.bubblesort.mavenartifact\src\main\resources  
+[INFO]  
+[INFO] --- maven-compiler-plugin:3.8.0:compile (default-compile) @ io.bubblesort.mavenartifact ---  
+[INFO] Changes detected - recompiling the module!  
+[INFO] Compiling 1 source file to D:\Development\maven-learn\io.bubblesort.mavenartifact\target\classes  
+[INFO]  
+[INFO] --- maven-resources-plugin:3.0.2:testResources (default-testResources) @ io.bubblesort.mavenartifact ---  
+[INFO] Using 'UTF-8' encoding to copy filtered resources.  
+[INFO] skip non existing resourceDirectory D:\Development\maven-learn\io.bubblesort.mavenartifact\src\test\resources  
+[INFO]  
+[INFO] --- maven-compiler-plugin:3.8.0:testCompile (default-testCompile) @ io.bubblesort.mavenartifact ---  
+[INFO] Changes detected - recompiling the module!  
+[INFO] Compiling 1 source file to D:\Development\maven-learn\io.bubblesort.mavenartifact\target\test-classes  
+[INFO]  
+[INFO] --- maven-surefire-plugin:2.22.1:test (default-test) @ io.bubblesort.mavenartifact ---  
+[INFO]  
+[INFO] -------------------------------------------------------  
+[INFO]  T E S T S  
+[INFO] -------------------------------------------------------  
+[INFO] Running io.bubblesort.maventutorial.AppTest  
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.049 s - in io.bubblesort.maventutorial.AppTest  
+[INFO]  
+[INFO] Results:  
+[INFO]  
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0  
+[INFO]  
+[INFO] ------------------------------------------------------------------------  
+[INFO] BUILD SUCCESS  
+[INFO] ------------------------------------------------------------------------  
+[INFO] Total time:  2.442 s  
+[INFO] Finished at: 2021-02-15T16:16:20+05:30  
+[INFO] ------------------------------------------------------------------------
