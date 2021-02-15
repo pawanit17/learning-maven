@@ -7,8 +7,6 @@ Apache Maven is both a build tool as well as a dependency management tool. More 
 - If all projects are created with Maven, they follow the same industry approved convention for projects.
 - In Ant, if our project is dependent on another Jar, then you have to download that Jar file and put it in a directory and then make Ant point to it for completing the build.     With Maven, that happens automatically.
 
-
-
 In general, a typical project structure looks as shown below:
 1. Source code
 2. Test code
@@ -46,6 +44,9 @@ After build, it also creates a local repository where it would store the artifac
 
 # POM.xml
 Central to Maven, is the POM.xml file. Project Object Model is its full name. It defines what the project settings are. To be more precise, the ArtifactID, the GroupID, the artificat version, the build properties, the dependencies, the packaging etc. The combination of ArtifactID, the GroupID and the artifact version are what tells Maven which artificat among many versions it has to load. These three are together called as Coordinates.
+
+![How Maven identifies a dependency from Coordinates](Locating dependency with coordinates.png)
+![Overview of project](Overview.png)
 
 Below is one such sample POM.xml file
 
@@ -149,7 +150,12 @@ Ex: Gitlab4J's POM.xml
 ```
 
 # Super POM
-All the Maven projects have overridden content in them. That means only the content that is updated by the project are listed in the POM.xml. All other information is inherited from the Super POM.xml file. This is present on the Maven repository.
+All the Maven projects have overridden content in them. That means only the content that is updated by the project is listed in the POM.xml. All other information is inherited from the Super POM.xml file. 
+Ex: The packagingType is defaulted to JAR in the Super POM.
+This is present on the Maven repository. All the Maven projects have their POM.xml inherited from this Super POM. 
+Good reads on Maven POM:
+1. https://maven.apache.org/ref/3.6.3/maven-model-builder/super-pom.html
+2. https://maven.apache.org/guides/introduction/introduction-to-the-pom.html
 
 # Effective POM
 The net POM is nothing but the resultant POM for a given project taking into account its Super POM. This can be see by executing the command `mvn help:effective-pom`.
