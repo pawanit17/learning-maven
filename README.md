@@ -46,7 +46,6 @@ After build, it also creates a local repository where it would store the artifac
 Central to Maven, is the POM.xml file. Project Object Model is its full name. It defines what the project settings are. To be more precise, the ArtifactID, the GroupID, the artificat version, the build properties, the dependencies, the packaging etc. The combination of ArtifactID, the GroupID and the artifact version are what tells Maven which artificat among many versions it has to load. These three are together called as Coordinates.
 
 ![How Maven identifies a dependency from Coordinates](Locating dependency with coordinates.png)
-![Overview of project](Overview.png)
 
 Below is one such sample POM.xml file
 
@@ -131,10 +130,11 @@ Below is one such sample POM.xml file
 ## A closer look
 * properties - determines what properties are to be applied during build and packaging
 * dependencies - determine what all are dependent libraries, jars
-* groupId - determines the group or the organization that is creating the project.
-* artifcatId - determines the name of the artificat.
+* groupId - determines the group or the organization that is creating the project. Reverse domain convention.
+* artifactId - determines the name of the artificat.
 * version -  determines the version of the artificat.
 * name - The general name for the project.
+* plugins  - Maven relies on plugins for getting job done. This includes plugins like maven-clean-plugin, maven-compiler-plugin, maven-dependency-plugin etc. 
 
 Ex: Gitlab4J's POM.xml 
 
@@ -175,6 +175,7 @@ Used for packaging the compiled source into Jar/War.
 
 The build process is managed by various identifiers in Maven, called as phases. These are listed below:
 
+* clean: cleans up artifacts created by prior builds
 * validate: validate the project is correct and all necessary information is available
 * compile: compile the source code of the project
 * test: test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed
@@ -183,10 +184,10 @@ The build process is managed by various identifiers in Maven, called as phases. 
 * verify: run any checks to verify the package is valid and meets quality criteria
 * install: install the package into the local repository, for use as a dependency in other projects locally
 * deploy: done in an integration or release environment, copies the final package to the remote repository for sharing with other developers and projects.
-* clean: cleans up artifacts created by prior builds
 * site: generates site documentation for this project
 
 When a single phase is executed, it executes all the phases above it as well. For example, running test would also run **validate** and **compile** as well. 
+Read More here: http://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Built-in_Lifecycle_Bindings
 
 Ex: 
 
